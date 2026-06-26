@@ -18,6 +18,7 @@ function createProject(name) {
     name,
     getTodos,
     deleteTodo,
+    todos,
   };
 }
 
