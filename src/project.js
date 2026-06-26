@@ -1,5 +1,3 @@
-import createTodo from "./todo.js";
-
 function createProject(name) {
   const todos = [];
 
@@ -7,19 +5,20 @@ function createProject(name) {
     todos.push(todo);
   };
 
-  const showTodos = () => {
-    todos.forEach((i) => {
-      console.log(i);
-    });
+  const getTodos = () => {
+    return todos;
+  };
+
+  const deleteTodo = (index) => {
+    todos.splice(index, 1);
   };
 
   return {
     addTodo,
     name,
-    showTodos,
+    getTodos,
+    deleteTodo,
   };
 }
 
-const home = createProject("home");
-let todo1 = createTodo("wash plate", "10-01-24", "important");
-home.addTodo(todo1);
+export default createProject;
