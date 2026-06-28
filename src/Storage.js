@@ -1,7 +1,7 @@
-import { addProject, projects } from "./app.js";
+import { addProject, getProjects } from "./app.js";
 
 function saveProjects() {
-  const projectString = JSON.stringify(projects);
+  const projectString = JSON.stringify(getProjects());
   localStorage.setItem("projects", projectString);
 }
 

@@ -1,6 +1,16 @@
 import createProject from "./project.js";
 
 const projects = [];
+let currentProject;
+
+function setCurrentProject(index) {
+  currentProject = projects[index];
+  return currentProject;
+}
+
+function getCurrentProject() {
+  return currentProject;
+}
 
 function addProject(name) {
   const project = createProject(name);
@@ -16,4 +26,10 @@ function getProjects() {
   return projects;
 }
 
-export { addProject, deleteProject, getProjects, projects };
+export {
+  addProject,
+  deleteProject,
+  getProjects,
+  setCurrentProject,
+  getCurrentProject,
+};

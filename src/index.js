@@ -1,18 +1,21 @@
 import "./styles.css";
 import createTodo from "./todo.js";
-import { addProject, deleteProject, getProjects } from "./app.js";
+import { loadProjects, saveProjects } from "./Storage.js";
+import { addProject, getCurrentProject, setCurrentProject } from "./app.js";
+import { renderProjects, renderTodos } from "./UI.js";
 
-let currentProject;
+if (localStorage.getItem("projects") !== null) loadProjects();
+else {
+  addProject("home");
+  addProject("work");
+  addProject("school");
+}
 
-addProject("home");
-addProject("work");
-addProject("school");
-
-const currentProjects = getProjects();
-currentProject = currentProjects[0];
+setCurrentProject(0);
+let currentProject = getCurrentProject();
 
 const todo1 = createTodo("wash plates", "01-02-23", "", "important");
+currentProject.addTodo(todo1);
 
-console.log(todo1);
-console.log(currentProjects);
-console.log(currentProject);
+renderProjects();
+renderTodos();
