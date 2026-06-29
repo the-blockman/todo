@@ -8,11 +8,32 @@
   <body>
     <div id="sidebar">
       <div id="projects-tab"></div>
-      <button>new project</button>
+      <button id="new-project-btn">new project</button>
+      <dialog id="new-project">
+        <form id="project-form">
+          <input type="text" required name="name" />
+          <button type="button" id="cancel-btn">cancel</button>
+          <button type="submit">add</button>
+        </form>
+      </dialog>
     </div>
     <main id="main">
       <div id="todo-display"></div>
-      <button>add task</button>
+      <button id="new-todo-btn">add task</button>
+      <dialog id="new-todo">
+        <form id="todo-form">
+          <input type="text" name="title" placeholder="Title" required />
+          <input type="text" name="description" placeholder="Description" />
+          <input type="date" name="dueDate" />
+          <select name="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button type="button" id="cancel-todo-btn">cancel</button>
+          <button type="submit">add</button>
+        </form>
+      </dialog>
     </main>
   </body>
 </html>
