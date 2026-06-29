@@ -14,8 +14,5 @@ else {
 setCurrentProject(0);
 let currentProject = getCurrentProject();
 
-const todo1 = createTodo("wash plates", "01-02-23", "", "important");
-currentProject.addTodo(todo1);
-
 renderProjects();
 renderTodos();

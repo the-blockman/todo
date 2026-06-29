@@ -18,22 +18,27 @@
       </dialog>
     </div>
     <main id="main">
-      <div id="todo-display"></div>
-      <button id="new-todo-btn">add task</button>
-      <dialog id="new-todo">
-        <form id="todo-form">
-          <input type="text" name="title" placeholder="Title" required />
-          <input type="text" name="description" placeholder="Description" />
-          <input type="date" name="dueDate" />
-          <select name="priority">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          <button type="button" id="cancel-todo-btn">cancel</button>
-          <button type="submit">add</button>
-        </form>
-      </dialog>
+      <div class="todo-list">
+        <div id="todo-display"></div>
+        <button id="new-todo-btn">add task</button>
+        <dialog id="new-todo">
+          <form id="todo-form">
+            <input type="text" name="title" placeholder="Title" required />
+            <input type="text" name="description" placeholder="Description" />
+            <input type="date" name="dueDate" />
+            <select name="priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+            <button type="button" id="cancel-todo-btn">cancel</button>
+            <button type="submit">add</button>
+          </form>
+        </dialog>
+      </div>
+      <div id="detail-panel" class="hidden">
+        <button id="close-panel">close</button>
+      </div>
     </main>
   </body>
 </html>

@@ -15,6 +15,7 @@ function createProject(name) {
 
   return {
     addTodo,
+    todos,
     name,
     getTodos,
     deleteTodo,

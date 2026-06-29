@@ -5,6 +5,7 @@ import {
   addProject,
   deleteProject,
 } from "./app.js";
+import { saveProjects } from "./Storage.js";
 import createTodo from "./todo.js";
 
 let projectContainer = document.getElementById("projects-tab");
@@ -17,6 +18,8 @@ const newTodoBtn = document.getElementById("new-todo-btn");
 const todoDialog = document.getElementById("new-todo");
 const todoForm = document.getElementById("todo-form");
 const cancelTodoBtn = document.getElementById("cancel-todo-btn");
+const detailPanel = document.getElementById("detail-panel");
+const closePanel = document.getElementById("close-panel");
 
 const renderProjects = () => {
   projectContainer.innerHTML = "";
@@ -37,6 +40,7 @@ const renderProjects = () => {
         if (currentProject === proj) setCurrentProject(0);
         renderProjects();
         renderTodos();
+        saveProjects();
       });
     }
     project.dataset.id = index;
@@ -53,18 +57,53 @@ const renderTodos = () => {
   let currentProject = getCurrentProject();
 
   const projectTodos = currentProject.getTodos();
-  projectTodos.forEach((td) => {
+  projectTodos.forEach((td, index) => {
     const todoRow = document.createElement("div");
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     const todoTitle = document.createElement("h5");
     const todoDate = document.createElement("p");
+    const deleteTodo = document.createElement("button");
+    deleteTodo.textContent = "delete";
     todoTitle.textContent = td.title;
     todoDate.textContent = td.dueDate;
+
+    deleteTodo.addEventListener("click", () => {
+      currentProject.deleteTodo(index);
+      renderTodos();
+      saveProjects();
+    });
+
+    todoRow.addEventListener("click", () => {
+      detailPanel.innerHTML = "";
+      const todoDesc = document.createElement("p");
+      const todoPriority = document.createElement("p");
+      const todoTitlePanel = document.createElement("p");
+      const todoDatePanel = document.createElement("h5");
+      const closeBtn = document.createElement("button");
+      detailPanel.classList.remove("hidden");
+
+      todoDesc.textContent = td.description;
+      todoPriority.textContent = td.priority;
+      todoTitlePanel.textContent = td.title;
+      todoDatePanel.textContent = td.dueDate;
+      closeBtn.textContent = "close";
+
+      detailPanel.appendChild(todoTitlePanel);
+      detailPanel.appendChild(todoDesc);
+      detailPanel.appendChild(todoDatePanel);
+      detailPanel.appendChild(todoPriority);
+      detailPanel.appendChild(closeBtn);
+
+      closeBtn.addEventListener("click", () => {
+        detailPanel.classList.add("hidden");
+      });
+    });
 
     todoRow.appendChild(checkBox);
     todoRow.appendChild(todoTitle);
     todoRow.appendChild(todoDate);
+    todoRow.appendChild(deleteTodo);
 
     todoContainer.appendChild(todoRow);
   });
@@ -85,6 +124,7 @@ projectForm.addEventListener("submit", (e) => {
   projectForm.reset();
   dialog.close();
   renderProjects();
+  saveProjects();
 });
 
 newTodoBtn.addEventListener("click", () => {
@@ -104,6 +144,7 @@ todoForm.addEventListener("submit", (e) => {
   todoForm.reset();
   todoDialog.close();
   renderTodos();
+  saveProjects();
 });
 
 cancelTodoBtn.addEventListener("click", () => {
