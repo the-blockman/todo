@@ -81,6 +81,7 @@ const renderTodos = () => {
       const todoTitlePanel = document.createElement("p");
       const todoDatePanel = document.createElement("h5");
       const closeBtn = document.createElement("button");
+      const editBtn = document.createElement("button");
       detailPanel.classList.remove("hidden");
 
       todoDesc.textContent = td.description;
@@ -88,15 +89,63 @@ const renderTodos = () => {
       todoTitlePanel.textContent = td.title;
       todoDatePanel.textContent = td.dueDate;
       closeBtn.textContent = "close";
+      editBtn.textContent = "edit";
 
       detailPanel.appendChild(todoTitlePanel);
       detailPanel.appendChild(todoDesc);
       detailPanel.appendChild(todoDatePanel);
       detailPanel.appendChild(todoPriority);
       detailPanel.appendChild(closeBtn);
+      detailPanel.appendChild(editBtn);
 
       closeBtn.addEventListener("click", () => {
         detailPanel.classList.add("hidden");
+      });
+
+      editBtn.addEventListener("click", () => {
+        detailPanel.innerHTML = "";
+        const editTitle = document.createElement("input");
+        editTitle.type = "text";
+        editTitle.value = td.title;
+        const editDate = document.createElement("input");
+        editDate.type = "date";
+        editDate.value = td.dueDate;
+        const editDesc = document.createElement("input");
+        editDesc.type = "text";
+        editDesc.value = td.description;
+        const editPriority = document.createElement("select");
+        const options = ["low", "medium", "high"];
+        options.forEach((priority) => {
+          const option = document.createElement("option");
+          option.value = priority;
+          option.textContent = priority;
+          editPriority.appendChild(option);
+        });
+        editPriority.value = td.priority;
+
+        const saveBtn = document.createElement("button");
+        saveBtn.textContent = "save";
+
+        saveBtn.addEventListener("click", () => {
+          currentProject.editTodo(
+            index,
+            editTitle.value,
+            editDate.value,
+            editDesc.value,
+            editPriority.value,
+          );
+          renderTodos();
+          detailPanel.classList.add("hidden");
+          saveProjects();
+        });
+
+        detailPanel.appendChild(editTitle);
+        detailPanel.appendChild(editDesc);
+        detailPanel.appendChild(editDate);
+        detailPanel.appendChild(editPriority);
+        detailPanel.appendChild(closeBtn);
+        detailPanel.appendChild(editBtn);
+        detailPanel.appendChild(saveBtn);
       });
     });
 

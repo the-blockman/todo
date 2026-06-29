@@ -1,3 +1,5 @@
+import createTodo from "./todo.js";
+
 function createProject(name) {
   const todos = [];
 
@@ -13,12 +15,18 @@ function createProject(name) {
     todos.splice(index, 1);
   };
 
+  const editTodo = (index, title, dueDate, description, priority) => {
+    const newTodo = createTodo(title, dueDate, description, priority);
+    todos[index] = newTodo;
+  };
+
   return {
     addTodo,
     todos,
     name,
     getTodos,
     deleteTodo,
+    editTodo,
   };
 }
 
