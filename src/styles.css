@@ -1,0 +1,14 @@
+:root {
+  --bg-color: #f7f6f3;
+  --sidebar-color: #f0ece5;
+  --card-bg: #ffffff;
+  --border-color: #e2ddd5;
+  --primary-text: #222222;
+  --secondary-text: #5e6a75;
+  --accent-color: #2563eb;
+  --hover-color: #1d4ed8;
+  --completed-color: #3f7d58;
+  --high-priority-color: #b42318;
+  --medium-priority-color: #c97a13;
+  --low-priority-color: #64748b;
+}

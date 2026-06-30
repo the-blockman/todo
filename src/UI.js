@@ -25,6 +25,8 @@ const renderProjects = () => {
   projectContainer.innerHTML = "";
   let projects = getProjects();
   projects.forEach((proj, index) => {
+    let currentProject = getCurrentProject();
+
     const projectRow = document.createElement("div");
     const project = document.createElement("h3");
     project.textContent = "# " + proj.name;
@@ -33,9 +35,7 @@ const renderProjects = () => {
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "delete";
       projectRow.appendChild(deleteBtn);
-
       deleteBtn.addEventListener("click", () => {
-        let currentProject = getCurrentProject();
         deleteProject(index);
         if (currentProject === proj) setCurrentProject(0);
         renderProjects();
@@ -43,9 +43,11 @@ const renderProjects = () => {
         saveProjects();
       });
     }
+    if (currentProject === proj) projectRow.classList.add("active");
     project.dataset.id = index;
     project.addEventListener("click", () => {
       setCurrentProject(index);
+      renderProjects();
       renderTodos();
     });
     projectContainer.appendChild(projectRow);
@@ -67,6 +69,12 @@ const renderTodos = () => {
     deleteTodo.textContent = "delete";
     todoTitle.textContent = td.title;
     todoDate.textContent = td.dueDate;
+
+    checkBox.addEventListener("change", () => {
+      td.completed = !td.completed;
+      todoRow.classList.toggle("completed");
+      saveProjects();
+    });
 
     deleteTodo.addEventListener("click", () => {
       currentProject.deleteTodo(index);
