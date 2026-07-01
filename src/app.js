@@ -5,6 +5,7 @@ let currentProject;
 
 function setCurrentProject(index) {
   currentProject = projects[index];
+  return currentProject;
 }
 
 function getCurrentProject() {
@@ -24,6 +25,8 @@ function deleteProject(index) {
 function getProjects() {
   return projects;
 }
+
+currentProject = getCurrentProject();
 
 export {
   addProject,

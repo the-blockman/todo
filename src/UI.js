@@ -19,7 +19,6 @@ const todoDialog = document.getElementById("new-todo");
 const todoForm = document.getElementById("todo-form");
 const cancelTodoBtn = document.getElementById("cancel-todo-btn");
 const detailPanel = document.getElementById("detail-panel");
-const closePanel = document.getElementById("close-panel");
 
 const renderProjects = () => {
   projectContainer.innerHTML = "";
@@ -82,7 +81,7 @@ const renderTodos = () => {
       todoPriority.style.color = "var(--medium-priority-color)";
     else todoPriority.style.color = "var(--high-priority-color)";
 
-    checkBox.addEventListener("change", (e) => {
+    checkBox.addEventListener("change", () => {
       td.completed = !td.completed;
       todoRow.classList.toggle("completed");
       saveProjects();
