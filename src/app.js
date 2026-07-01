@@ -5,7 +5,6 @@ let currentProject;
 
 function setCurrentProject(index) {
   currentProject = projects[index];
-  return currentProject;
 }
 
 function getCurrentProject() {

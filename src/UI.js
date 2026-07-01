@@ -24,18 +24,25 @@ const closePanel = document.getElementById("close-panel");
 const renderProjects = () => {
   projectContainer.innerHTML = "";
   let projects = getProjects();
+  let currentProject = getCurrentProject();
   projects.forEach((proj, index) => {
-    let currentProject = getCurrentProject();
-
     const projectRow = document.createElement("div");
-    const project = document.createElement("h3");
+    const project = document.createElement("div");
+    project.classList.add("project-name");
     project.textContent = "# " + proj.name;
     projectRow.appendChild(project);
+    projectRow.addEventListener("click", () => {
+      setCurrentProject(index);
+      renderProjects();
+      renderTodos();
+    });
     if (index !== 0) {
       const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "delete";
+      deleteBtn.textContent = "x";
+      deleteBtn.classList.add("delete-project-btn");
       projectRow.appendChild(deleteBtn);
-      deleteBtn.addEventListener("click", () => {
+      deleteBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
         deleteProject(index);
         if (currentProject === proj) setCurrentProject(0);
         renderProjects();
@@ -45,11 +52,7 @@ const renderProjects = () => {
     }
     if (currentProject === proj) projectRow.classList.add("active");
     project.dataset.id = index;
-    project.addEventListener("click", () => {
-      setCurrentProject(index);
-      renderProjects();
-      renderTodos();
-    });
+
     projectContainer.appendChild(projectRow);
   });
 };
@@ -61,19 +64,32 @@ const renderTodos = () => {
   const projectTodos = currentProject.getTodos();
   projectTodos.forEach((td, index) => {
     const todoRow = document.createElement("div");
+    todoRow.classList.add("todo-row");
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     const todoTitle = document.createElement("h5");
     const todoDate = document.createElement("p");
+    const todoPriority = document.createElement("span");
     const deleteTodo = document.createElement("button");
     deleteTodo.textContent = "delete";
     todoTitle.textContent = td.title;
     todoDate.textContent = td.dueDate;
+    todoPriority.textContent = "\u25CF" + td.priority;
 
-    checkBox.addEventListener("change", () => {
+    if (td.priority === "low") {
+      todoPriority.style.color = "var(--low-priority-color)";
+    } else if (td.priority === "medium")
+      todoPriority.style.color = "var(--medium-priority-color)";
+    else todoPriority.style.color = "var(--high-priority-color)";
+
+    checkBox.addEventListener("change", (e) => {
       td.completed = !td.completed;
       todoRow.classList.toggle("completed");
       saveProjects();
+    });
+
+    checkBox.addEventListener("click", (e) => {
+      e.stopPropagation();
     });
 
     deleteTodo.addEventListener("click", () => {
@@ -87,6 +103,7 @@ const renderTodos = () => {
       const todoDesc = document.createElement("p");
       const todoPriority = document.createElement("p");
       const todoTitlePanel = document.createElement("p");
+      todoTitlePanel.classList.add("detail-title");
       const todoDatePanel = document.createElement("h5");
       const closeBtn = document.createElement("button");
       const editBtn = document.createElement("button");
@@ -159,8 +176,9 @@ const renderTodos = () => {
 
     todoRow.appendChild(checkBox);
     todoRow.appendChild(todoTitle);
-    todoRow.appendChild(todoDate);
     todoRow.appendChild(deleteTodo);
+    todoRow.appendChild(todoPriority);
+    todoRow.appendChild(todoDate);
 
     todoContainer.appendChild(todoRow);
   });

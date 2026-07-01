@@ -14,19 +14,19 @@
   <body>
     <div id="sidebar">
       <div id="projects-tab"></div>
-      <button id="new-project-btn">new project</button>
+      <button id="new-project-btn" class="secondary-button">new project</button>
       <dialog id="new-project">
         <form id="project-form">
           <input type="text" required name="name" />
-          <button type="button" id="cancel-btn">cancel</button>
           <button type="submit">add</button>
+          <button type="button" id="cancel-btn">cancel</button>
         </form>
       </dialog>
     </div>
     <main id="main">
       <div class="todo-list">
         <div id="todo-display"></div>
-        <button id="new-todo-btn">add task</button>
+        <button id="new-todo-btn" class="secondary-button">add task</button>
         <dialog id="new-todo">
           <form id="todo-form">
             <input type="text" name="title" placeholder="Title" required />
